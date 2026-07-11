@@ -1426,7 +1426,33 @@ var translations = {
   'Episodes coming soon!': '¡Episodios próximamente!',
   'Our first episodes are being recorded. Subscribe to our YouTube channel to get notified!': 'Nuestros primeros episodios están siendo grabados. ¡Suscríbete a nuestro canal de YouTube para ser notificado!',
   'Celebrating Colombian AWS Excellence': 'Celebrando la Excelencia AWS Colombiana',
-  'All Regions': 'Todas las Regiones'
+  'All Regions': 'Todas las Regiones',
+  'STEP 1': 'PASO 1',
+  'STEP 2': 'PASO 2',
+  'STEP 3': 'PASO 3',
+  'STEP 4': 'PASO 4',
+  '2 exams': '2 exámenes',
+  '5 exams': '5 exámenes',
+  '3 exams': '3 exámenes',
+  'Golden Jacket!': '¡Golden Jacket!',
+  'All 12 certs earned': 'Las 12 certs obtenidas',
+  'Episodes coming soon!': '¡Episodios próximamente!',
+  'Our first episodes are being recorded. Subscribe to our YouTube channel to get notified!': 'Nuestros primeros episodios están siendo grabados. ¡Suscríbete a nuestro canal de YouTube para ser notificado!',
+  'Join the journey': 'Únete al viaje',
+  'Follow us for insights, events, and stories from the Colombian Golden Jacket community.': 'Síguenos para novedades, eventos e historias de la comunidad Golden Jacket de Colombia.',
+  'Follow on LinkedIn': 'Seguir en LinkedIn',
+  'I\'m a Golden Jacket 🏆': 'Soy un Golden Jacket 🏆',
+  'Submit Application': 'Enviar Solicitud',
+  'Full Name': 'Nombre Completo',
+  'City': 'Ciudad',
+  'Certification Date': 'Fecha de Certificación',
+  'LinkedIn Profile URL': 'URL del Perfil LinkedIn',
+  'Email (for Members Lounge access)': 'Email (para acceso al Members Lounge)',
+  'AWS Community Program (optional)': 'Programa AWS Community (opcional)',
+  'Membership Type': 'Tipo de Membresía',
+  'Photo': 'Foto',
+  'Select region...': 'Selecciona región...',
+  'None': 'Ninguno'
 };
 
 function toggleLang() {
@@ -1471,6 +1497,10 @@ function applyLang() {
         if (text === en) { node.textContent = node.textContent.replace(en, translations[en]); break; }
       }
       if (text.includes('visits')) { node.textContent = node.textContent.replace(' visits', ' visitas').replace('unique visitors', 'visitantes \u00fanicos'); }
+      if (text.startsWith('STEP')) node.textContent = node.textContent.replace('STEP', 'PASO');
+      if (text.match(/^\d+ exams$/)) node.textContent = node.textContent.replace('exams', 'ex\u00e1menes');
+      if (text === 'Official Partners') node.textContent = 'Socios Oficiales';
+      if (text === 'Golden Jacket!') node.textContent = '\u00a1Golden Jacket!';
     }
   } else {
     var reverse = {};
@@ -1481,6 +1511,10 @@ function applyLang() {
         if (text === es) { node.textContent = node.textContent.replace(es, reverse[es]); break; }
       }
       if (text.includes('visitas')) { node.textContent = node.textContent.replace(' visitas', ' visits').replace('visitantes \u00fanicos', 'unique visitors'); }
+      if (text.startsWith('PASO')) node.textContent = node.textContent.replace('PASO', 'STEP');
+      if (text.match(/^\d+ ex\u00e1menes$/)) node.textContent = node.textContent.replace('ex\u00e1menes', 'exams');
+      if (text === 'Socios Oficiales') node.textContent = 'Official Partners';
+      if (text === '\u00a1Golden Jacket!') node.textContent = 'Golden Jacket!';
     }
   }
 
