@@ -390,6 +390,7 @@
       <a href="#events">Events</a>
       <a href="#articles">Articles &amp; Talks</a>
       <a href="/members.html" style="background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.4);padding:5px 12px;border-radius:18px;color:#FFD700;font-weight:700;font-size:0.85em;">Lounge 🔒</a>
+      <button class="lang-toggle" onclick="toggleLang()" title="Cambiar idioma"><img src="https://flagcdn.com/w40/us.png" width="20" height="14" alt="EN" class="flag-img"></button>
       <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
     </div>
     <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">☰</button>
@@ -403,6 +404,7 @@
     <a href="#events" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Events</a>
     <a href="#articles" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Articles &amp; Talks</a>
     <a href="/members.html" style="background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.4);padding:5px 12px;border-radius:18px;color:#FFD700;font-weight:700;font-size:0.85em;">Lounge 🔒</a>
+    <button class="lang-toggle" onclick="toggleLang()" title="Cambiar idioma"><img src="https://flagcdn.com/w40/us.png" width="20" height="14" alt="EN" class="flag-img"></button>
     <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
     
   </div>
@@ -1335,6 +1337,142 @@ document.addEventListener('click', function(e) {
 });
 window.addEventListener('scroll', function() {
   document.querySelector('.mobile-menu').classList.remove('open');
+});
+</script>
+<script>
+// Language Switch ES/EN — Spanish as default
+var currentLang = localStorage.getItem('lang') || 'es';
+var translations = {
+  'Welcome to ': 'Bienvenido a ',
+  '"Builders inspiring builders to go further."': '"Builders inspirando builders a ir más lejos."',
+  'Already a Golden Jacket holder from Colombia?': '¿Ya eres Golden Jacket de Colombia?',
+  'Get in touch': 'Contáctanos',
+  'About Us': 'Sobre Nosotros',
+  'What the Golden Jacket Creator Says': 'Lo que dice el Creador del Golden Jacket',
+  'A message for the Golden Jackets Colombia Community': 'Un mensaje para la Comunidad Golden Jackets Colombia',
+  'Creator of the Golden Jacket · Managing Director, AWS': 'Creador del Golden Jacket · Managing Director, AWS',
+  'Official Partners': 'Socios Oficiales',
+  'AWS Certification Prep · Practice Exams': 'Preparación para Certificación AWS · Exámenes de Práctica',
+  'AI & ML Courses · Video Courses': 'Cursos de IA & ML · Videocursos',
+  'Members': 'Miembros',
+  'Where we are': 'Dónde estamos',
+  'Golden Jackets across Colombia': 'Golden Jackets en Colombia',
+  'Professionals who earned all 12 AWS certifications': 'Profesionales que obtuvieron las 12 certificaciones AWS',
+  'Every Golden Jacket holds all active AWS Certifications': 'Todo Golden Jacket posee todas las Certificaciones AWS activas',
+  '12 certifications · 4 levels · Complete mastery': '12 certificaciones · 4 niveles · Dominio completo',
+  'Filter by Region:': 'Filtrar por Región:',
+  'Upcoming Events': 'Próximos Eventos',
+  'Where you\'ll find Golden Jackets Colombia 🇨🇴': 'Donde encontrarás Golden Jackets Colombia 🇨🇴',
+  'Events': 'Eventos',
+  'Sponsors & Partners': 'Patrocinadores y Socios',
+  'Companies and educators who support our community': 'Empresas y educadores que apoyan nuestra comunidad',
+  'Interested in supporting Golden Jackets Colombia?': '¿Interesado en apoyar a Golden Jackets Colombia?',
+  'We\'re looking for partners who share our mission of empowering cloud professionals in Colombia. Sponsor the community and connect with the most certified AWS professionals in the country.': 'Buscamos socios que compartan nuestra misión de empoderar a profesionales cloud en Colombia. Patrocina la comunidad y conéctate con los profesionales AWS más certificados del país.',
+  'Send Interest →': 'Enviar Interés →',
+  'Frequently Asked Questions': 'Preguntas Frecuentes',
+  'What is the Golden Jacket?': '¿Qué es el Golden Jacket?',
+  'The Golden Jacket is the highest recognition in the AWS certification ecosystem — awarded to professionals who earn all 12 active AWS certifications. It was created by Geries AbouAyash, Managing Director at AWS.': 'El Golden Jacket es el mayor reconocimiento en el ecosistema de certificaciones AWS — otorgado a profesionales que obtienen las 12 certificaciones AWS activas. Fue creado por Geries AbouAyash, Managing Director en AWS.',
+  'How many certifications do I need?': '¿Cuántas certificaciones necesito?',
+  'All 12 active AWS certifications must be current and valid: 2 Foundational, 5 Associate, 2 Professional, and 3 Specialty level.': 'Las 12 certificaciones AWS activas deben estar vigentes: 2 Foundational, 5 Associate, 2 Professional y 3 Specialty.',
+  'How long does it take?': '¿Cuánto tiempo toma?',
+  'It varies — some achieve it in 1-2 years of focused study, others take longer. The key is consistency and dedication.': 'Varía — algunos lo logran en 1-2 años de estudio enfocado, otros tardan más. La clave es consistencia y dedicación.',
+  'How rare is it?': '¿Qué tan raro es?',
+  'Extremely rare. Less than 0.01% of AWS certified professionals worldwide hold all active certifications. In Colombia, there are 10+ known Golden Jacket holders.': 'Extremadamente raro. Menos del 0.01% de los profesionales certificados AWS en el mundo poseen todas las certificaciones activas. En Colombia hay 10+ Golden Jackets conocidos.',
+  'All Active Certifications': 'Todas las Certificaciones Activas',
+  'Difficulty Levels': 'Niveles de Dificultad',
+  'Of AWS Certified Pros': 'De Profesionales Certificados AWS',
+  'Known in Colombia 🇨🇴': 'Conocidos en Colombia 🇨🇴',
+  'Alumni': 'Alumni',
+  'Former Golden Jacket holders — renew your expired certifications to reclaim your Golden Jacket status': 'Ex portadores del Golden Jacket — renueva tus certificaciones expiradas para recuperar tu estatus',
+  'Challengers': 'Challengers',
+  'Professionals with 10 or more AWS certifications — on the final stretch to the Golden Jacket': 'Profesionales con 10 o más certificaciones AWS — en la recta final hacia el Golden Jacket',
+  'Articles & Talks': 'Artículos y Charlas',
+  'Technical content and talks from our Golden Jacket members': 'Contenido técnico y charlas de nuestros miembros Golden Jacket',
+  'Privacy Policy': 'Política de Privacidad',
+  'Independent community, not officially affiliated with Amazon Web Services.': 'Comunidad independiente, no afiliada oficialmente con Amazon Web Services.',
+  'Learn more →': 'Más información →',
+  'Follow us →': 'Síguenos →',
+  'Founded': 'Fundado',
+  'Regions': 'Regiones',
+  'Certifications': 'Certificaciones',
+  'Golden Jacket': 'Golden Jacket',
+  'Chapter Lead': 'Líder del Chapter',
+  'Member': 'Miembro',
+  'Founder': 'Fundador',
+  'Co-Founder': 'Co-Fundador',
+  'All 12 AWS Certifications ✓': 'Las 12 Certificaciones AWS ✓',
+  'Join Us': 'Únete',
+  'This is an independent community, not officially affiliated with Amazon Web Services.': 'Esta es una comunidad independiente, no afiliada oficialmente con Amazon Web Services.',
+  '* Some members hold the ML Specialty (retired Apr 2026), while others hold the Generative AI Professional — both are recognized paths to the Golden Jacket.': '* Algunos miembros poseen el ML Specialty (retirado Abr 2026), mientras otros poseen el Generative AI Professional — ambos son caminos reconocidos hacia el Golden Jacket.',
+  'visits': 'visitas',
+  'unique visitors': 'visitantes únicos',
+  'Lounge 🔒': 'Lounge 🔒',
+  'Sponsors': 'Patrocinadores'
+};
+
+function toggleLang() {
+  currentLang = currentLang === 'es' ? 'en' : 'es';
+  localStorage.setItem('lang', currentLang);
+  applyLang();
+}
+
+function applyLang() {
+  var btns = document.querySelectorAll('.lang-toggle');
+  // Update flag: show flag of language you CAN switch to
+  btns.forEach(function(b) {
+    b.innerHTML = currentLang === 'es'
+      ? '<img src="https://flagcdn.com/w40/us.png" width="20" height="14" alt="EN" class="flag-img">'
+      : '<img src="https://flagcdn.com/w40/co.png" width="20" height="14" alt="ES" class="flag-img">';
+  });
+
+  // Toggle About paragraph
+  var ap = document.getElementById('aboutParagraph');
+  if (ap && currentLang === 'es') ap.innerHTML = 'Somos los Golden Jackets de Colombia \u2014 un grupo selecto de profesionales reconocidos por Amazon Web Services con la m\u00e1s alta distinci\u00f3n en la comunidad AWS mundial. El Golden Jacket es otorgado a quienes han obtenido todas las certificaciones AWS activas y demostrado una contribuci\u00f3n excepcional a trav\u00e9s del liderazgo t\u00e9cnico, creaci\u00f3n de contenido, construcci\u00f3n de comunidad e innovaci\u00f3n. <span style="color:var(--gold);font-style:italic;">Nuestra misi\u00f3n es compartir conocimiento</span>, <span style="color:var(--gold);font-style:italic;">inspirar la pr\u00f3xima generaci\u00f3n de l\u00edderes cloud</span>, <span style="color:var(--gold);font-style:italic;">y fortalecer la presencia de Colombia en el escenario global de AWS</span>.';
+  if (ap && currentLang === 'en') ap.innerHTML = 'We are the Golden Jackets from Colombia \u2014 a select group of professionals recognized by Amazon Web Services with the highest distinction in the AWS community worldwide. The Golden Jacket is awarded to those who have earned all active AWS certifications and demonstrated exceptional contribution through technical leadership, content creation, community building, and innovation. <span style="color:var(--gold);font-style:italic;">Our mission is to share knowledge</span>, <span style="color:var(--gold);font-style:italic;">inspire the next generation of cloud leaders</span>, <span style="color:var(--gold);font-style:italic;">and strengthen Colombia\u2019s presence on the global AWS stage</span>.';
+
+  // TreeWalker approach — translate all text nodes
+  var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  var node;
+  if (currentLang === 'es') {
+    while (node = walker.nextNode()) {
+      var text = node.textContent.trim();
+      for (var en in translations) {
+        if (text === en) { node.textContent = node.textContent.replace(en, translations[en]); break; }
+      }
+      if (text.includes('visits')) { node.textContent = node.textContent.replace(' visits', ' visitas').replace('unique visitors', 'visitantes \u00fanicos'); }
+    }
+  } else {
+    var reverse = {};
+    for (var en in translations) { reverse[translations[en]] = en; }
+    while (node = walker.nextNode()) {
+      var text = node.textContent.trim();
+      for (var es in reverse) {
+        if (text === es) { node.textContent = node.textContent.replace(es, reverse[es]); break; }
+      }
+      if (text.includes('visitas')) { node.textContent = node.textContent.replace(' visitas', ' visits').replace('visitantes \u00fanicos', 'unique visitors'); }
+    }
+  }
+
+  // Update welcome banner
+  var gjNames = [];
+  document.querySelectorAll('#members .member-card h3').forEach(function(h){ gjNames.push(h.textContent); });
+  var last3 = gjNames.slice(-3);
+  var wt = (currentLang === 'es') ? '\uD83C\uDD95 Bienvenido ' : '\uD83C\uDD95 Welcome ';
+  if(last3.length===3) wt += last3[0]+', '+last3[1]+' & '+last3[2]+'!';
+  else if(last3.length===2) wt += last3[0]+' & '+last3[1]+'!';
+  else if(last3.length===1) wt += last3[0]+'!';
+  document.querySelectorAll('.welcome-new').forEach(function(s){ s.textContent = wt; });
+
+  // Update Join button text
+  var joinSpan = document.querySelector('.join-btn span');
+  if (joinSpan) joinSpan.textContent = currentLang === 'es' ? '\u00danete' : 'Join Us';
+}
+
+// Apply language on page load (ES is default)
+window.addEventListener('DOMContentLoaded', function() {
+  if (currentLang === 'es') {
+    applyLang();
+  }
 });
 </script></div></body>
 <!-- v1.1 -->
