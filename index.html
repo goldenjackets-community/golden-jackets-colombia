@@ -1347,6 +1347,7 @@ var translations = {
   '"Builders inspiring builders to go further."': '"Builders inspirando builders a ir más lejos."',
   'Already a Golden Jacket holder from Colombia?': '¿Ya eres Golden Jacket de Colombia?',
   'Get in touch': 'Contáctanos',
+  'to join the community and be featured on this page.': 'para unirte a la comunidad y aparecer en esta página.',
   'About Us': 'Sobre Nosotros',
   'What the Golden Jacket Creator Says': 'Lo que dice el Creador del Golden Jacket',
   'A message for the Golden Jackets Colombia Community': 'Un mensaje para la Comunidad Golden Jackets Colombia',
@@ -1407,7 +1408,25 @@ var translations = {
   'visits': 'visitas',
   'unique visitors': 'visitantes únicos',
   'Lounge 🔒': 'Lounge 🔒',
-  'Sponsors': 'Patrocinadores'
+  'Sponsors': 'Patrocinadores',
+  'Path to the Golden Jacket': 'Camino al Golden Jacket',
+  'Everything you need to know about earning the highest AWS recognition': 'Todo lo que necesitas saber para obtener el mayor reconocimiento AWS',
+  'Foundational': 'Foundational',
+  'Associate': 'Associate',
+  'Professional': 'Professional',
+  'Specialty': 'Specialty',
+  'exams': 'exámenes',
+  'All 12 certs earned': 'Las 12 certs obtenidas',
+  'Join the journey': 'Únete al viaje',
+  'Follow us for insights, events, and stories from the Colombian Golden Jacket community.': 'Síguenos para novedades, eventos e historias de la comunidad Golden Jacket de Colombia.',
+  'Follow on LinkedIn': 'Seguir en LinkedIn',
+  'I\'m a Golden Jacket 🏆': 'Soy un Golden Jacket 🏆',
+  'Podcast & Videos': 'Podcast y Videos',
+  'Watch our episodes on YouTube or listen on Spotify': 'Mira nuestros episodios en YouTube o escucha en Spotify',
+  'Episodes coming soon!': '¡Episodios próximamente!',
+  'Our first episodes are being recorded. Subscribe to our YouTube channel to get notified!': 'Nuestros primeros episodios están siendo grabados. ¡Suscríbete a nuestro canal de YouTube para ser notificado!',
+  'Celebrating Colombian AWS Excellence': 'Celebrando la Excelencia AWS Colombiana',
+  'All Regions': 'Todas las Regiones'
 };
 
 function toggleLang() {
@@ -1424,6 +1443,18 @@ function applyLang() {
       ? '<img src="https://flagcdn.com/w40/us.png" width="20" height="14" alt="EN" class="flag-img">'
       : '<img src="https://flagcdn.com/w40/co.png" width="20" height="14" alt="ES" class="flag-img">';
   });
+
+  // Hero Welcome span
+  var welcomeSpan = document.querySelector('[data-i18n="welcome"]');
+  if (welcomeSpan) welcomeSpan.textContent = currentLang === 'es' ? 'Bienvenido a ' : 'Welcome to ';
+
+  // Hero description paragraph
+  var heroDescs = document.querySelectorAll('.desc');
+  if (heroDescs[0]) {
+    heroDescs[0].textContent = currentLang === 'es'
+      ? 'La comunidad Golden Jackets Colombia celebra a l\u00edderes cloud apasionados por aprender y comprometidos en ayudar a otros a tener \u00e9xito. Nuestros miembros han obtenido todas las certificaciones AWS activas y apoyan activamente a otros en su viaje cloud.'
+      : 'The Golden Jackets Colombia community celebrates cloud leaders who are passionate about learning and committed to helping others succeed. Our members have achieved all active AWS certifications and actively support others on their cloud journey.';
+  }
 
   // Toggle About paragraph
   var ap = document.getElementById('aboutParagraph');
